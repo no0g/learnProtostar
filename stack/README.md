@@ -155,8 +155,9 @@ Notes while learning binary exploitation from protostar
 	}
 	```
 - Answer
-	
+		
 	```python
+	#!/bin/python
 	from pwn import *
 
 	pad = b'aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaa'
