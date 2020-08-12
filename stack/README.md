@@ -1,6 +1,5 @@
 # Notes and Answer
-Notes while learning binary exploitation from protostar
-
+Notes while learning binary exploitation from protostar, YEA
 ## Stack 1 
 - Source code
 	
